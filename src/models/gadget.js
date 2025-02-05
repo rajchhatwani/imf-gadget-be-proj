@@ -26,4 +26,7 @@ const Gadget = sequelize.define("Gadget", {
   },
 });
 
+Gadget.sync().then(() => console.log("Gadget table is created")).catch((err)=> console.log("error while creating this tableName",err));
+
+
 module.exports = Gadget;
