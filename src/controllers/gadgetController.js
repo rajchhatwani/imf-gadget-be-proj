@@ -19,7 +19,7 @@ exports.addGadget = async (req, res) => {
   try {
     console.log("POST API hit");
     const { name } = req.body;
-    const newGadget = await Gadget.create({ name: generateCode() });
+    const newGadget = await Gadget.create({ name });
     res.status(201).json(newGadget);
   } catch (error) {
     res.status(400).json({ error: "Failed to add gadget" });
