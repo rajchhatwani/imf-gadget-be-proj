@@ -65,3 +65,17 @@ exports.selfDestructGadget = async (req, res) => {
     res.status(400).json({ error: "Self-destruct failed" });
   }
 };
+
+exports.deleteGadgetForMe = async (req, res) => {
+  try {
+    console.log("Admin delete has been performed successfully");
+    const { id } = req.params;
+    const gadget = await Gadget.findByPk(id);
+    if (!gadget) return res.status(404).json({ error: "Gadget not found" });
+    gadget.destroy();
+    await gadget.save();
+    res.json({ message: "Gadget deleted successfully" });
+  } catch (error) {
+    res.status(400).json({ error: "Delete Process failed" });
+  }
+};
