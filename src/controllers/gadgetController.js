@@ -3,6 +3,7 @@ const generateCode = require("../utils/generateCode");
 
 exports.getGadgets = async (req, res) => {
   try {
+    console.log("GET API hit");
     const gadgets = await Gadget.findAll();
     const gadgetsWithProbability = gadgets.map((gadget) => ({
       ...gadget.dataValues,
@@ -16,6 +17,7 @@ exports.getGadgets = async (req, res) => {
 
 exports.addGadget = async (req, res) => {
   try {
+    console.log("POST API hit");
     const { name } = req.body;
     const newGadget = await Gadget.create({ name: generateCode() });
     res.status(201).json(newGadget);
@@ -26,6 +28,7 @@ exports.addGadget = async (req, res) => {
 
 exports.updateGadget = async (req, res) => {
   try {
+    console.log("UPDATE API hit");
     const { id } = req.params;
     const updated = await Gadget.update(req.body, { where: { id } });
     if (updated[0]) return res.json({ message: "Gadget updated" });
@@ -37,6 +40,7 @@ exports.updateGadget = async (req, res) => {
 
 exports.deleteGadget = async (req, res) => {
   try {
+    console.log("DELETE API hit");
     const { id } = req.params;
     const gadget = await Gadget.findByPk(id);
     if (!gadget) return res.status(404).json({ error: "Gadget not found" });
@@ -53,6 +57,7 @@ exports.deleteGadget = async (req, res) => {
 
 exports.selfDestructGadget = async (req, res) => {
   try {
+    console.log("SELF-DESTRUCT API hit");
     const { id } = req.params;
     const confirmationCode = generateCode();
     res.json({ message: `Enter this code to confirm: ${confirmationCode}` });
